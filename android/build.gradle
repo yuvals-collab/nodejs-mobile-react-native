@@ -59,12 +59,13 @@ android {
         versionCode 1
         versionName "1.0"
         externalNativeBuild {
-            cmake {
-                cppFlags ""
-                if(!_isCorrectSTLDefinedByApp) {
-                    arguments "-DANDROID_STL=c++_shared"
-                }
-            }
+             cmake {
+-                cppFlags ""
++                // Enable 16KB page size for Android (NDK r27+)
++                arguments "-DANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES=ON"
+                 if(!_isCorrectSTLDefinedByApp) {
+                     arguments "-DANDROID_STL=c++_shared"
+                 }
         }
         ndk {
             abiFilters = project(":app").android.defaultConfig.ndk.abiFilters
